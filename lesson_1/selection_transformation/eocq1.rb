@@ -4,7 +4,7 @@ def select_fruit(produce_list)
   selected_produce = {}
 
   loop do
-    break if counter == produce_key.size
+    break if counter == produce_list.size
     current_key = produce_key[counter]
     current_value = produce_list[current_key]
 
