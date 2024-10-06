@@ -1,3 +1,3 @@
-['ant', 'bat', 'caterpillar'].count do |str|
-  str.length < 4
-end
+# ['ant', 'bat', 'caterpillar'].count do |str|
+#   str.length < 4
+# end
