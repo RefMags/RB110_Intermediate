@@ -14,6 +14,7 @@ end
 
 def snake(str)
   words = str.split
+  # current_word = 1
   current_word = 0
 
   loop do
