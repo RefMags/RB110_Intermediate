@@ -7,7 +7,7 @@ ages = { "Herman" => 32,
 
 # munster_family_ages = ages.values
 # counter = 0
-total_sum = 0
+# total_sum = 0
 
 
 # loop do
@@ -22,8 +22,8 @@ total_sum = 0
 
 # using iterative method: `each`
 
-ages.each do |_, value|
-  total_sum += value
-end
+# ages.each {|_, value| total_sum += value}
+# puts total_sum
 
+total_sum = ages.values.inject(:+)
 puts total_sum
