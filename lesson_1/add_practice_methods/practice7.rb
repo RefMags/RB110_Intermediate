@@ -7,4 +7,4 @@ statement_arr.each do |letter|
   statement_hash[letter] = letter_frequency
 end
 
-statement_hash
+p statement_hash
