@@ -4,3 +4,9 @@ books = [
   {title: 'War and Peace', author: 'Leo Tolstoy', published: '1869'},
   {title: 'Ulysses', author: 'James Joyce', published: '1922'}
 ]
+
+books.sort_by do |book|
+
+  # books.sort_by do |key, value|
+  # end
+end
