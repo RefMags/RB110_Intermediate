@@ -30,3 +30,8 @@ munsters = {
 }
 
 puts munsters_males(munsters, "gender")
+
+
+munsters.each_value do |value|
+  puts value["age"]
+end
