@@ -5,8 +5,9 @@ books = [
   {title: 'Ulysses', author: 'James Joyce', published: '1922'}
 ]
 
-books.sort_by do |book|
-
-  # books.sort_by do |key, value|
-  # end
+sorted_books = books.sort_by do |book|
+  book[:published]
 end
+
+
+p sorted_books
