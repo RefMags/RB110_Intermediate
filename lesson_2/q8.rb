@@ -29,27 +29,17 @@ order_data = [
   # rest of data...
 ]
 
-customer_orders = {}
-
-order_data.each do |row|
-  if customer_orders.key?(row[:customer_id])
-    customer_orders[row[:customer_id]][:orders] << [
-      row[:order_fulfilled],
-      row[:order_value]
+customer_orders = order_data.map do |row|
+  {
+    customer_id: row[:customer_id],
+    customer_name: row[:customer_name],
+    orders: [
+      {
+        order_fulfilled: row[:order_fulfilled],
+        order_value: row[:order_value]
+      }
     ]
-  else
-    customer_orders[row[:customer_id]] = {
-      customer_id: row[:customer_id],
-      customer_name: row[:customer_name],
-      orders: [
-        [
-          row[:order_fulfilled],
-          row[:order_value]
-        ]
-      ]
-    }
-  end
+  }
 end
 
-customer_orders = customer_orders.values
 p customer_orders
