@@ -9,7 +9,7 @@ num1, num2 = %w(first second).map do |index|
   gets.chomp.to_i
 end
 
-puts num1, num2
+# puts num1, num2
 
 # Perform operation
 OPERATORS = %i( + -  * /  %  ** )
