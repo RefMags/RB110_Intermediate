@@ -20,30 +20,44 @@ Algo:
 
 =end
 
+# def solve(input)
+#   alphabets = "abcdefghijklmnopqrstuvwxyz"
+#   counts = []
+
+#   # Iterate over each word in the input array
+#   input.each do |word|
+#     match_count = 0
+#     # convert the word to lower case to handle case sensitivity
+#     word.downcase.chars.each_with_index do |char, index|
+#       # find the position of character in the alphabets string
+#       alphabet_index = alphabets.index(char)
+#       # Compare the index of the characters in the word with its position in the alphabet
+#       if alphabet_index == index
+#         match_count += 1
+#       end
+#     end
+#     counts << match_count
+#   end
+#   counts
+# end
+
+
+# # p solve(["abodea", "ABc"])
+# puts solve(["abode","ABc","xyzD"]) == [4,3,1] # true
+# puts solve(["abide","ABc","xyz"]) == [4,3,0] # true
+# puts solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6,5,7] # true
+# puts solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3] # true
+
+
 def solve(input)
   alphabets = "abcdefghijklmnopqrstuvwxyz"
-  counts = []
 
-  # Iterate over each word in the input array
-  input.each do |word|
-    match_count = 0
-    # convert the word to lower case to handle case sensitivity
-    word.downcase.chars.each_with_index do |char, index|
-      # find the position of character in the alphabets string
-      alphabet_index = alphabets.index(char)
-      # Compare the index of the characters in the word with its position in the alphabet
-      if alphabet_index == index
-        match_count += 1
-      end
+  input.map do |word|
+    word.downcase.chars.each_with_index.count do |letter, index|
+      alphabet_index = alphabets.index(letter)
+      alphabet_index == index
     end
-    counts << match_count
   end
-  counts
 end
 
-
-# p solve(["abodea", "ABc"])
-puts solve(["abode","ABc","xyzD"]) == [4,3,1] # true
-puts solve(["abide","ABc","xyz"]) == [4,3,0] # true
-puts solve(["IAMDEFANDJKL","thedefgh","xyzDEFghijabc"]) == [6,5,7] # true
-puts solve(["encode","abc","xyzD","ABmD"]) == [1, 3, 1, 3] # true
+puts solve(["abode","ABc","xyzD"]) #== [4,3,1] # true
