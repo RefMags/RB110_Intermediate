@@ -1,3 +1,5 @@
+require 'pry'
+
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
@@ -9,13 +11,14 @@ end
 # Set up and display the board
 ## Displaying the board
 def display_board(brd)
+  system "clear"
   puts " "
   puts "     |     |"
   puts "  #{brd[1]}  |  #{brd[2]}  |  #{brd[3]} "
   puts "     |     |"
   puts ".....+.....+......"
   puts "     |     |"
-  puts "  #{brd[4]}  |  #{brd[5]}  |  #{brd[6]} "
+  puts "  #{brd[4]}  |  #{brd[3]}  |  #{brd[6]} "
   puts "     |     |"
   puts ".....+.....+......"
   puts "     |     |"
@@ -49,11 +52,31 @@ def player_moves!(brd)
     end
 
   end
-
   brd[board_cell] = PLAYER_MARKER
+  binding.pry
+end
+
+def computer_move!(brd)
+  board_cell = empty_cells(brd).sample
+  brd[board_cell] = COMPUTER_MARKER
+end
+
+# Checks if board is full
+def board_full?(brd)
+  empty_cells(brd).empty?
+end
+
+def someone_won?(brd)
+  false
 end
 
 board_cells = initialize_board
 display_board(board_cells)
-player_moves!(board_cells)
-p display_board(board_cells)
+
+loop do
+  player_moves!(board_cells)
+  computer_move!(board_cells)
+  display_board(board_cells)
+
+  break if someone_won?(board_cells) || board_full?(board_cells)
+end
