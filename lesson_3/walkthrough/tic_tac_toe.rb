@@ -1,3 +1,11 @@
+# INITIAL_MARKER = ' '
+PLAYER_MARKER = 'X'
+COMPUTER_MARKER = 'O'
+
+def prompt(msg)
+  puts " => #{msg}"
+end
+
 # Set up and display the board
 ## Displaying the board
 def display_board(brd)
@@ -23,5 +31,31 @@ def initialize_board
   new_board
 end
 
-board = initialize_board
-display_board(board)
+def empty_cells(brd)
+  brd.keys.select {|cell_num| brd[cell_num] == ' ' }
+end
+
+def player_moves!(brd)
+  board_cell = ''
+  loop do
+    prompt " Choose a board cell #{empty_cells(brd).join(', ')}:"
+    board_cell = gets.chomp.to_i
+
+    if empty_cells(brd).include?(board_cell)
+      break
+    else
+      prompt " Sorry, that's not a valid choice"
+    end
+
+  end
+
+  brd[board_cell] = "X"
+end
+
+board_cells = initialize_board
+display_board(board_cells)
+
+# Player turn
+
+player_moves!(board_cells)
+p display_board(board_cells)
