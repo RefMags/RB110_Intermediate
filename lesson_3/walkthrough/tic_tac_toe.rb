@@ -1,4 +1,4 @@
-# INITIAL_MARKER = ' '
+INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 
@@ -15,7 +15,7 @@ def display_board(brd)
   puts "     |     |"
   puts ".....+.....+......"
   puts "     |     |"
-  puts "  #{brd[3]}  |  #{brd[4]}  |  #{brd[5]} "
+  puts "  #{brd[4]}  |  #{brd[5]}  |  #{brd[6]} "
   puts "     |     |"
   puts ".....+.....+......"
   puts "     |     |"
@@ -27,14 +27,15 @@ end
 ## Representing the board state
 def initialize_board
   new_board = {}
-  (1..9).each { |cell_num| new_board[cell_num] = ' '}
+  (1..9).each { |cell_num| new_board[cell_num] = INITIAL_MARKER}
   new_board
 end
 
 def empty_cells(brd)
-  brd.keys.select {|cell_num| brd[cell_num] == ' ' }
+  brd.keys.select {|cell_num| brd[cell_num] == INITIAL_MARKER }
 end
 
+# Player move
 def player_moves!(brd)
   board_cell = ''
   loop do
@@ -49,13 +50,10 @@ def player_moves!(brd)
 
   end
 
-  brd[board_cell] = "X"
+  brd[board_cell] = PLAYER_MARKER
 end
 
 board_cells = initialize_board
 display_board(board_cells)
-
-# Player turn
-
 player_moves!(board_cells)
 p display_board(board_cells)
