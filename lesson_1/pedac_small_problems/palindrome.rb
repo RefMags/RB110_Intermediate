@@ -45,7 +45,7 @@ end
 
 all_substrings("abcddcbA")
 p is_palindrome?("cdc")
-palindrome_substrings("supercalifragilisticexpialidocious") == ["ili"]
-# p palindrome_substrings("abcddcbA") == ["bcddcb", "cddc", "dd"]
-# palindrome_substrings("palindrome") == []
-# palindrome_substrings("") == []
+p palindrome_substrings("supercalifragilisticexpialidocious") == ["ili"]
+p palindrome_substrings("abcddcbA") == ["bcddcb", "cddc", "dd"]
+p palindrome_substrings("palindrome") == []
+p palindrome_substrings("") == []
