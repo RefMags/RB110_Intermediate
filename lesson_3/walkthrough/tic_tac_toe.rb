@@ -8,8 +8,7 @@ def prompt(msg)
   puts " => #{msg}"
 end
 
-# Set up and display the board
-## Displaying the board
+# rubocop: disable Metrics/MethodLength, Metrics/AbcSize
 def display_board(brd)
   # Keeping the game stationary after every move selection
   system "clear"
@@ -32,12 +31,12 @@ end
 ## Representing the board state
 def initialize_board
   new_board = {}
-  (1..9).each { |cell_num| new_board[cell_num] = INITIAL_MARKER}
+  (1..9).each { |cell_num| new_board[cell_num] = INITIAL_MARKER }
   new_board
 end
 
 def empty_cells(brd)
-  brd.keys.select {|cell_num| brd[cell_num] == INITIAL_MARKER }
+  brd.keys.select { |cell_num| brd[cell_num] == INITIAL_MARKER }
 end
 
 # Player move
@@ -52,7 +51,6 @@ def player_moves!(brd)
     else
       prompt " Sorry, that's not a valid choice"
     end
-
   end
   brd[board_cell] = PLAYER_MARKER
   # binding.pry
