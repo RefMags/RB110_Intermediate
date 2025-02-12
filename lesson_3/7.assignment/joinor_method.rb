@@ -37,6 +37,8 @@ def joinor(arr, joiner1 = ", ", joiner2 = ", or", joiner3 = " or ")
   end
 end
 
+# Refactor this code using guard clauses, array decomposition, ternary operations
+#
 
 joinor([])                   # => ""
 joinor([1])                   # => "1"
