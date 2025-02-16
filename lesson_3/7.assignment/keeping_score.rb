@@ -1,6 +1,6 @@
 # Determining the winner
 
-winner = ["Player", "Computer"]
+# winner = ["Player", "Computer"]
 # player_score = 0
 # computer_score = 0
 game_counter = 1
@@ -27,16 +27,18 @@ game_counter = 1
 #   puts "Computer reached 5 wins first!"
 # end
 
+winner_score = { "PLAYER" => 0, "COMPUTER" => 0 }
 
 loop do
-  winner_score = { "PLAYER" => 0, "COMPUTER" => 0 }
   current_winner = winner_score.keys.sample
-  p current_winner
+  # p current_winner
 
   if current_winner == "PLAYER"
     winner_score[current_winner] += 1
+    puts "Round #{game_counter}: Player score #{winner_score[current_winner]}"
   else
     winner_score[current_winner] += 1
+    puts "Round #{game_counter}: Computer score #{winner_score[current_winner]}"
   end
 
   game_counter += 1
