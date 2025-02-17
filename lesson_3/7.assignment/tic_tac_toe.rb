@@ -1,5 +1,6 @@
 require 'pry'
 WINNER_SCORE = { "Player" => 0, "Computer" => 0 }
+game_counter = 1
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
@@ -94,6 +95,22 @@ def detect_winner(brd)
   nil
 end
 
+  # increment winner score
+
+  #   current_winner = detect_winner(board_cells)
+
+  #   if current_winner == "Player"
+  #     WINNER_SCORE[current_winner] += 1
+  #     puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
+  #   else
+  #     WINNER_SCORE[current_winner] += 1
+  #     puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
+  #   end
+
+  #   break if WINNER_SCORE["Player"] == 5 || WINNER_SCORE["Computer"] == 5
+
+
+# Main game loop
 loop do
   board_cells = initialize_board
 
@@ -116,19 +133,19 @@ loop do
     prompt " It's a tie!"
   end
 
-  loop do
     current_winner = detect_winner(board_cells)
 
     if current_winner == "Player"
       WINNER_SCORE[current_winner] += 1
-      puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
+      puts "Round #{game_counter}: #{current_winner} score #{WINNER_SCORE[current_winner]}"
     else
       WINNER_SCORE[current_winner] += 1
-      puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
+      puts "Round #{game_counter}: #{current_winner} score #{WINNER_SCORE[current_winner]}"
     end
 
+    game_counter += 1
+
     break if WINNER_SCORE["Player"] == 5 || WINNER_SCORE["Computer"] == 5
-  end
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
