@@ -1,3 +1,9 @@
+=begin
+
+rescue => exception
+
+=end
+
 # Determining the winner
 
 # winner = ["Player", "Computer"]
