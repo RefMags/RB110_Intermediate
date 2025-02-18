@@ -1,7 +1,5 @@
 require 'pry'
 WINNER_SCORE = { "Player" => 0, "Computer" => 0 }
-game_counter = 1
-
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
                 [[1, 5, 9], [3, 5, 7]]                # diagonals
@@ -84,6 +82,19 @@ def someone_won?(brd)
   !!detect_winner(brd)
 end
 
+# increment winner score per round
+def keeping_score(brd)
+  current_winner = detect_winner(brd)
+
+  if current_winner == "Player"
+    WINNER_SCORE[current_winner] += 1
+    return "#{current_winner} score: #{WINNER_SCORE[current_winner]}"
+  else
+    WINNER_SCORE[current_winner] += 1
+    return "#{current_winner} score: #{WINNER_SCORE[current_winner]}"
+  end
+end
+
 def detect_winner(brd)
   WINNING_LINES.each do |line|
     if brd.values_at(line[0], line[1], line[2]).count(PLAYER_MARKER) == 3
@@ -94,20 +105,6 @@ def detect_winner(brd)
   end
   nil
 end
-
-  # increment winner score
-
-  #   current_winner = detect_winner(board_cells)
-
-  #   if current_winner == "Player"
-  #     WINNER_SCORE[current_winner] += 1
-  #     puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
-  #   else
-  #     WINNER_SCORE[current_winner] += 1
-  #     puts "#{current_winner} score #{WINNER_SCORE[current_winner]}"
-  #   end
-
-  #   break if WINNER_SCORE["Player"] == 5 || WINNER_SCORE["Computer"] == 5
 
 
 # Main game loop
@@ -128,24 +125,13 @@ loop do
 
   # detect winner should return a string such as #Player won
   if someone_won?(board_cells)
-    prompt " #{detect_winner(board_cells)} won!"
+    prompt " #{keeping_score(board_cells)} "
   else
     prompt " It's a tie!"
   end
 
-    current_winner = detect_winner(board_cells)
-
-    if current_winner == "Player"
-      WINNER_SCORE[current_winner] += 1
-      puts "Round #{game_counter}: #{current_winner} score #{WINNER_SCORE[current_winner]}"
-    else
-      WINNER_SCORE[current_winner] += 1
-      puts "Round #{game_counter}: #{current_winner} score #{WINNER_SCORE[current_winner]}"
-    end
-
-    game_counter += 1
-
-    break if WINNER_SCORE["Player"] == 5 || WINNER_SCORE["Computer"] == 5
+  # grand_winner = WINNER_SCORE["Player"] == 5 ? "Player" : "Computer"
+  # prompt " #{grand_winner} reached 5 wins first and is the grand winner!"
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
