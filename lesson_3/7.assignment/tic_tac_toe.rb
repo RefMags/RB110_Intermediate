@@ -1,5 +1,6 @@
 require 'pry'
 WINNER_SCORE = { "Player" => 0, "Computer" => 0 }
+GRAND_WINNER = 5
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
                 [[1, 5, 9], [3, 5, 7]]                # diagonals
@@ -126,16 +127,22 @@ loop do
   # detect winner should return a string such as #Player won
   if someone_won?(board_cells)
     prompt " #{keeping_score(board_cells)} "
+    # Display the grand winner if scores reach 5
+    if WINNER_SCORE["Player"] == GRAND_WINNER
+      prompt "Player is our Grand Winner!!"
+    elsif WINNER_SCORE["Computer"] == GRAND_WINNER
+      prompt "Computer is our Grand Winner!!"
+    end
   else
     prompt " It's a tie!"
   end
 
-  # grand_winner = WINNER_SCORE["Player"] == 5 ? "Player" : "Computer"
-  # prompt " #{grand_winner} reached 5 wins first and is the grand winner!"
-
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
+
+  # grand_winner = WINNER_SCORE["Player"] == 5 ? "Player" : "Computer"
+  # prompt " #{grand_winner} reached 5 wins first and is the grand winner!"
 end
 
 prompt "Thanks for playing Tic Tac Toe! Goodbye!"
