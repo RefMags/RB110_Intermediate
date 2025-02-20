@@ -1,6 +1,7 @@
 require 'pry'
-WINNER_SCORE = { "Player" => 0, "Computer" => 0 }
-GRAND_WINNER = 5
+
+WINNER_SCORES = { "Player" => 0, "Computer" => 0 }
+GAME_FIVE = 5
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
                 [[1, 5, 9], [3, 5, 7]]                # diagonals
@@ -21,6 +22,9 @@ def joinor(arr)
   [prefix.join(', '), last].join(arr.size == 2 ? 'or' : ', or ')
 end
 
+def reset_scores(scores)
+  WINNER_SCORES.each_key { |key| WINNER_SCORES[key] = 0}
+end
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
   # Keeping the game stationary after every move selection
@@ -86,14 +90,10 @@ end
 # increment winner score per round
 def keeping_score(brd)
   current_winner = detect_winner(brd)
+  return "Its a tie!" if current_winner.nil?
 
-  if current_winner == "Player"
-    WINNER_SCORE[current_winner] += 1
-    return "#{current_winner} score: #{WINNER_SCORE[current_winner]}"
-  else
-    WINNER_SCORE[current_winner] += 1
-    return "#{current_winner} score: #{WINNER_SCORE[current_winner]}"
-  end
+  WINNER_SCORES[current_winner] += 1
+  return "#{current_winner} wins this round! Score: #{WINNER_SCORES[current_winner]}"
 end
 
 def detect_winner(brd)
@@ -127,22 +127,20 @@ loop do
   # detect winner should return a string such as #Player won
   if someone_won?(board_cells)
     prompt " #{keeping_score(board_cells)} "
-    # Display the grand winner if scores reach 5
-    if WINNER_SCORE["Player"] == GRAND_WINNER
-      prompt "Player is our Grand Winner!!"
-    elsif WINNER_SCORE["Computer"] == GRAND_WINNER
-      prompt "Computer is our Grand Winner!!"
-    end
   else
     prompt " It's a tie!"
+  end
+
+  grand_winner = WINNER_SCORES.key(GAME_FIVE)
+  if grand_winner
+    prompt " #{grand_winner} reached #{GAME_FIVE} wins first and is the winner! "
+    reset_scores(WINNER_SCORES)
+    # break
   end
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
-
-  # grand_winner = WINNER_SCORE["Player"] == 5 ? "Player" : "Computer"
-  # prompt " #{grand_winner} reached 5 wins first and is the grand winner!"
 end
 
 prompt "Thanks for playing Tic Tac Toe! Goodbye!"
