@@ -1,6 +1,6 @@
 require 'pry'
 
-WINNER_SCORES = { "Player" => 0, "Computer" => 0 }
+SCORES = { "Player" => 0, "Computer" => 0 }
 GAME_FIVE = 5
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] +   # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] +   # columns
@@ -23,7 +23,7 @@ def joinor(arr)
 end
 
 def reset_scores(scores)
-  WINNER_SCORES.each_key { |key| WINNER_SCORES[key] = 0}
+  SCORES.each_key { |key| SCORES[key] = 0}
 end
 # rubocop:disable Metrics/AbcSize
 def display_board(brd)
@@ -92,8 +92,8 @@ def keeping_score(brd)
   current_winner = detect_winner(brd)
   return "Its a tie!" if current_winner.nil?
 
-  WINNER_SCORES[current_winner] += 1
-  return "#{current_winner} wins this round! Score: #{WINNER_SCORES[current_winner]}"
+  SCORES[current_winner] += 1
+  return "#{current_winner} wins this round! Score: #{SCORES[current_winner]}"
 end
 
 def detect_winner(brd)
@@ -131,11 +131,10 @@ loop do
     prompt " It's a tie!"
   end
 
-  grand_winner = WINNER_SCORES.key(GAME_FIVE)
+  grand_winner = SCORES.key(GAME_FIVE)
   if grand_winner
     prompt " #{grand_winner} reached #{GAME_FIVE} wins first and is the winner! "
-    reset_scores(WINNER_SCORES)
-    # break
+    reset_scores(SCORES)
   end
 
   prompt "Play again? (y or n)"
