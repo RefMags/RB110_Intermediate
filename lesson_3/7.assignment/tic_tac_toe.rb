@@ -73,8 +73,21 @@ def player_moves!(brd)
 end
 
 def computer_move!(brd)
-  board_cell = empty_cells(brd).sample
-  brd[board_cell] = COMPUTER_MARKER
+  if computer_defense(brd)
+    # CHECK the empty cell of the lines
+  else
+    board_cell = empty_cells(brd).sample
+    brd[board_cell] = COMPUTER_MARKER
+  end
+end
+
+# Detects the possible defense for Computer AI
+def computer_defense?(brd)
+  possible_wins = WINNING_LINES.select do |line|
+                    brd.values_at(*line).count(PLAYER_MARKER) == 2
+                  end
+  possible_wins  ## We return all the lines which contain only 2 X's,
+  # from this lines we want to select the one where we have an empty string,
 end
 
 # Checks if board is full
@@ -98,16 +111,17 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
-    if brd.values_at(line[0], line[1], line[2]).count(PLAYER_MARKER) == 3
+    if brd.values_at(*line).count(PLAYER_MARKER) == 3
       return 'Player'
-    elsif brd.values_at(line[0], line[1], line[2]).count(COMPUTER_MARKER) == 3
+    elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
       return 'Computer'
     end
   end
   nil
 end
 
-
+# brd = {1 => ' ', 2 => ' ', 3 => ' ', 4 => ' ', 5 => ' ', 6 => ' ', 7 => ' ', 8 => ' ', 9 => ' '}
+# winning_line = [[1, 2, 3],[4, 5, 6], [7, 8, 9]] + [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + [[1, 5, 9], [3, 5, 7]]
 # Main game loop
 loop do
   board_cells = initialize_board
