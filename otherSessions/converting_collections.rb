@@ -18,8 +18,9 @@
 ## Practice Problem 3___
 ages = {"Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237}
 
-less_than_100 = ages.select {|_, value| value < 100}
+less_than_100 = ages.select! {|_, value| value < 100}
 
 p less_than_100
+p ages
 
 ## Practice Problem 4____
