@@ -45,7 +45,6 @@ end
 flintstones
 
 ## Practice Problem 7____
-statement = "The Flintstones Rock"
-p statement_arr = statement.split
+
 
 # { "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }
