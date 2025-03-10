@@ -45,6 +45,60 @@ end
 flintstones
 
 ## Practice Problem 7____
+statement = "The Flintstones Rock"
+alphabets = ("A".."Z").to_a + ("a".."z").to_a
+result = {}
 
+alphabets.each do |letter|
+  letter_count = statement.count(letter)
+  if letter_count > 0
+    result[letter] = letter_count
+  end
+end
 
+result
 # { "F"=>1, "R"=>1, "T"=>1, "c"=>1, "e"=>2, ... }
+
+
+## Practice Problem 8____
+
+# numbers = [1, 2, 3, 4]
+# arr_ = numbers.each do |number|
+#   number
+#   numbers.shift(1)
+# end
+
+# p numbers
+
+
+# numbers = [1, 2, 3, 4]
+# numbers.each do |number|
+#   p number
+#   p numbers.pop(1)
+# end
+
+# p numbers
+## Practice Problem 10____
+
+# "kid" => (0..17), "adult" => (18..64), "senior" => (>65)
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+each = munsters.each do |name, details|
+  case details["age"]
+  when 0..17
+    details["age_group"] = "kid"
+  when 18..64
+    details["age_group"] = "adult"
+  else
+    details["age_group"] = "senior"
+  end
+end
+p each
+# p munsters
