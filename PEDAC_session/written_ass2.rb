@@ -1,7 +1,9 @@
 shelter = { meagan: ["rock", "zombie"], noah: ["lou", "seal", "tipper"], ammie: ["skip"] }
 # shelter.sort.to_h
 
-p shelter.sort {|a, b| p (a[1].size <=> b[1].size) }
+p shelter.sort {|a, b| a[1].size <=> b[1].size }
+
+p shelter.sort_by {|_, pets|  pets.reverse}
 
 =begin
   - The `shelter` variable is initialized with name symbols as keys (:meagan, :noah and :ammie)
