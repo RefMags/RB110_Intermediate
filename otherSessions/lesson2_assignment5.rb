@@ -70,3 +70,15 @@ munsters = {
 munsters.each do |name, details|
   puts "#{name} is a #{details["age"]}-year-old #{details["gender"]}."
 end
+
+# No 7.
+a = 2
+b = [5, 8]
+arr = [a, b]
+
+arr[0] += 2 # 4 # => we concatenate the `0` index of `arr`, that is `2` with 2.
+  # the return is assigned to the `0` position.
+arr[1][0] -= a # 3
+
+p a
+p b
