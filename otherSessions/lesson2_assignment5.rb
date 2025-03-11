@@ -12,12 +12,12 @@ ordered_books1 = books.sort {|a, b| a[:published] <=> b[:published] }
 # p ordered_books
 # p ordered_books1
 
-# No4. Finding and replacing all `3`'s with `4`
+# No4. Finding and replacing all `5`'s with `10`
 def replacement(arr, target, replacement)
   arr.map do |element|
     if element.is_a?(Array)
       replacement(element, target, replacement)
-    elsif element == 3
+    elsif element == 5
       replacement
     else
       element
@@ -25,8 +25,8 @@ def replacement(arr, target, replacement)
   end
 end
 
-arr1 = [1, [2, 3], 4]
-p replacement(arr1, 3, 4)
+arr1 = [1, [2, 5, 6],[5, 5], 4]
+# p replacement(arr1, 5, 10)
 
 
 # b
@@ -68,7 +68,7 @@ munsters = {
 }
 
 munsters.each do |name, details|
-  puts "#{name} is a #{details["age"]}-year-old #{details["gender"]}."
+  # puts "#{name} is a #{details["age"]}-year-old #{details["gender"]}."
 end
 
 # No 7.
@@ -80,5 +80,25 @@ arr[0] += 2 # 4 # => we concatenate the `0` index of `arr`, that is `2` with 2.
   # the return is assigned to the `0` position.
 arr[1][0] -= a # 3
 
-p a
-p b
+# p a
+# p b
+
+# No 8.
+## get all vowels from the string using each
+hsh = {first: ['the', 'quick'], second: ['brown', 'fox'], third: ['jumped'], fourth: ['over', 'the', 'lazy', 'dog']}
+
+vowels = ["a", "e", "u", "i", "o"]
+vowels_in_string = []
+
+hsh.each do |_, value|
+  value.each do |string|
+    vowels.each do |vowel|
+      # puts "Checking if #{vowel} is included in #{string}"
+      # puts vowel if string.include?(vowel)
+      # puts "#{vowel} is included in #{string}"
+    end
+  end
+end
+
+
+# No 9.
