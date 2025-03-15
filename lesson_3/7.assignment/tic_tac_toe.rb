@@ -73,21 +73,18 @@ def player_moves!(brd)
 end
 
 def computer_move!(brd)
-  if computer_defense(brd)
-    # CHECK the empty cell of the lines
-  else
+  # if computer_defense(brd)
+  #   # CHECK the empty cell of the lines
+  # else
     board_cell = empty_cells(brd).sample
     brd[board_cell] = COMPUTER_MARKER
-  end
 end
 
 # Detects the possible defense for Computer AI
-def computer_defense?(brd)
-  possible_wins = WINNING_LINES.select do |line|
-                    brd.values_at(*line).count(PLAYER_MARKER) == 2
-                  end
-  possible_wins  ## We return all the lines which contain only 2 X's,
-  # from this lines we want to select the one where we have an empty string,
+def possible_player_wins?(brd)
+  WINNING_LINES.select do |line|
+    brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
+  end
 end
 
 # Checks if board is full
