@@ -83,15 +83,23 @@ end
 
 # Detects the possible defense for Computer AI
 def computer_defense?(brd)
-  potential_wins = WINNING_LINES.select do |line|
+  potential_loses = WINNING_LINES.select do |line|
     brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
 
-  return nil if potential_wins.empty?
-
-  choosen_line = potential_wins.sample
-
-  empty_position = choosen_line.find {|position| brd[position] == ' '}
+  return nil if potential_loses.empty?
+  potential_loss = potential_loses.sample
+  secure_defense_cell = potential_loss.find {|cell| brd[cell] == ' '}
+  # if !!potential_loses.empty?
+  #   potential_win = WINNING_LINES.select do |line|
+  #     brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
+  #   end
+  #   binding.pry
+  #   secure_win_cell = potential_win[0].find {|cell| board[cell] == ' '}
+  # else
+  #   potential_loss = potential_loses.sample
+  #   secure_defense_cell = potential_loss.find {|cell| board_cell[cell] == ' '}
+  # end
 end
 
 # Checks if board is full
