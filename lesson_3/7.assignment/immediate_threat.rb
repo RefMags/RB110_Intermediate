@@ -8,6 +8,10 @@ def computer_defense(board)
 
   return nil if potential_wins.empty?
 
+  choosen_line = potential_wins.sample
+
+  empty_position = choosen_line.find {|position| board[position] == ' '}
+
 end
 
 
