@@ -73,18 +73,25 @@ def player_moves!(brd)
 end
 
 def computer_move!(brd)
-  # if computer_defense(brd)
-  #   # CHECK the empty cell of the lines
-  # else
+  if computer_defense?(brd)
+    brd[computer_defense?(brd)] = COMPUTER_MARKER
+  else
     board_cell = empty_cells(brd).sample
     brd[board_cell] = COMPUTER_MARKER
+  end
 end
 
 # Detects the possible defense for Computer AI
-def possible_player_wins?(brd)
-  WINNING_LINES.select do |line|
+def computer_defense?(brd)
+  potential_wins = WINNING_LINES.select do |line|
     brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
+
+  return nil if potential_wins.empty?
+
+  choosen_line = potential_wins.sample
+
+  empty_position = choosen_line.find {|position| brd[position] == ' '}
 end
 
 # Checks if board is full
