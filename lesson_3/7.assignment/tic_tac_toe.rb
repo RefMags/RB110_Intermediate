@@ -74,6 +74,8 @@ end
 
 def computer_move!(brd)
   if computer_defense?(brd)
+    binding.pry
+    p "#{computer_defense?(brd)} either offensive or defensive"
     brd[computer_defense?(brd)] = COMPUTER_MARKER
   else
     board_cell = empty_cells(brd).sample
@@ -81,25 +83,30 @@ def computer_move!(brd)
   end
 end
 
-# Detects the possible defense for Computer AI
-def computer_defense?(brd)
-  potential_loses = WINNING_LINES.select do |line|
+# HELPER METHODS for computer defense
+def player_potential_wins(brd)
+  potential_computer_wins = WINNING_LINES.select do |line|
     brd.values_at(*line).count(PLAYER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
+end
 
-  return nil if potential_loses.empty?
-  potential_loss = potential_loses.sample
-  secure_defense_cell = potential_loss.find {|cell| brd[cell] == ' '}
-  # if !!potential_loses.empty?
-  #   potential_win = WINNING_LINES.select do |line|
-  #     brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
-  #   end
-  #   binding.pry
-  #   secure_win_cell = potential_win[0].find {|cell| board[cell] == ' '}
-  # else
-  #   potential_loss = potential_loses.sample
-  #   secure_defense_cell = potential_loss.find {|cell| board_cell[cell] == ' '}
-  # end
+def computer_potential_wins(brd)
+  potential_computer_wins = WINNING_LINES.select do |line|
+    brd.values_at(*line).count(COMPUTER_MARKER) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
+  end
+end
+
+# Detects the possible defense for Computer AI
+def computer_defense?(brd)
+  if !player_potential_wins(brd).empty?
+    player_win = player_potential_wins(brd).sample
+    secure_defense_cell = player_win.find {|cell| brd[cell] == ' '}
+  elsif !computer_potential_wins(brd).empty?
+    computer_win = computer_potential_wins(brd).sample
+    secure_computer_win = computer_win.find {|cell| brd[cell] == ' '}
+  else
+    nil
+  end
 end
 
 # Checks if board is full
