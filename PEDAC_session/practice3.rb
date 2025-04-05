@@ -34,7 +34,8 @@ def sum_of_numbers(str)
 
   str.each_char do |char|
     if char >= '0' && char <= '9'
-      curret_num +=
+      curret_num += 1
+    end
   end
 end
 
