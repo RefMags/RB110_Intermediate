@@ -50,13 +50,13 @@ def differenceOfTwo(numbers)
       end
     end
   end
-  p pairs.sort_by {|a, b| [a, b] }
+  pairs.map {|sub| sub.sort }.sort
 end
 
 
-# puts differenceOfTwo([1, 2, 3, 4]) == [[1, 3], [2, 4]]
-differenceOfTwo([4, 1, 2, 3]) #== [[1, 3], [2, 4]]
-# puts differenceOfTwo([1, 23, 3, 4, 7]) == [[1, 3]]
-# puts differenceOfTwo([4, 3, 1, 5, 6]) == [[1, 3], [3, 5], [4, 6]]
-# puts differenceOfTwo([2, 4]) == [[2, 4]]
-# puts differenceOfTwo([1, 4, 7, 10, 13])== []
+puts differenceOfTwo([1, 2, 3, 4]) == [[1, 3], [2, 4]]
+puts differenceOfTwo([4, 1, 2, 3]) == [[1, 3], [2, 4]]
+puts differenceOfTwo([1, 23, 3, 4, 7]) == [[1, 3]]
+puts differenceOfTwo([4, 3, 1, 5, 6]) == [[1, 3], [3, 5], [4, 6]]
+puts differenceOfTwo([2, 4]) == [[2, 4]]
+puts differenceOfTwo([1, 4, 7, 10, 13])== []
