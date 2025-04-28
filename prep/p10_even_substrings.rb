@@ -1,7 +1,7 @@
 def even_substrings(str)
   total = 0
 
-  str.each_char.with_index do |char, idx|
+  str.each_char.with_index do |_, idx|
     (idx..str.size - 1 ).each do |idx2|
       total += 1 if str[idx..idx2].to_i % 2 == 0
     end
