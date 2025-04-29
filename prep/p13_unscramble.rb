@@ -1,8 +1,8 @@
 def unscramble(str1, str2)
-  strA = str1.chars.sort
-  strB = str2.chars.sort
+  # strA = str1.chars.sort
+  # strB = str2.chars.sort
 
-  strB.all? {|letter| strA.include?(letter)}
+  str2.chars.all? {|letter| str1.include?(letter)}
 end
 
 p unscramble('ansucchlohlo', 'launchschool') == true
