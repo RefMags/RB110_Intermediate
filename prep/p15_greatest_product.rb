@@ -13,7 +13,7 @@ def greatest_product(str)
     subs << nums[num, 4]
   end
 
-  subs.map { |sub| sub.reduce(&:*) }.max
+   subs.map { |sub| sub.reduce(&:*) }.max
 end
 
 p greatest_product('23456') == 360      # 3 * 4 * 5 * 6
