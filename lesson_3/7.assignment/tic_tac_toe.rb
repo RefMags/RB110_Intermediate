@@ -1,4 +1,4 @@
-require 'pry'
+# require 'pry'
 
 SCORES = { "Player" => 0, "Computer" => 0 }
 GAME_FIVE = 5
@@ -69,13 +69,12 @@ def player_moves!(brd)
   end
 
   brd[board_cell] = PLAYER_MARKER
-  # binding.pry
 end
 
 def computer_move!(brd)
   if computer_defense?(brd)
-    binding.pry
-    p "#{computer_defense?(brd)} either offensive or defensive"
+    # binding.pry
+    # p "#{computer_defense?(brd)} either offensive or defensive"
     brd[computer_defense?(brd)] = COMPUTER_MARKER
   else
     board_cell = empty_cells(brd).sample
