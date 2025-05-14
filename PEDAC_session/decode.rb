@@ -53,6 +53,31 @@ ALGO:
 LOWER = ("a".."z").to_a
 UPPER = ("A".."Z").to_a
 
+def subs(arr)
+  substring = ""
+  substrings = []
+
+  arr.each do |text|
+    text.each_char.with_index do |char, idx1|
+      # finding if char is uppercase
+      if UPPER.include?(char)
+        substring << char
+
+        (idx1 + 1..text.size - 1).each do |idx2|
+          if LOWER.include?(text[idx2])
+            substring << text[idx2]
+          elsif UPPER.include?(text[idx2])
+            substring << text[idx2]
+            substrings << substring
+          end
+        end
+
+      end
+    end
+  end
+
+end
+
 def decode(arr)
   return [] if arr.empty?
 
@@ -61,21 +86,27 @@ def decode(arr)
   result = arr.map do |text|
     text.empty? ? 0 : text
 
-    text.each_char do |char|
-      # finding if char is uppercase
-      if UPPER.include?(char)
-        substring << char
-        # finding if next char after uppercase is lowercase
-          if LOWER.include?(char)
-            substring << char
-            p substring
-          end
-      end
-    end
+    # text.each_char.with_index do |char, idx1|
+    #   # finding if char is uppercase
+    #   if UPPER.include?(char)
+    #     substring << char
+    #     (idx1 + 1..text.size - 1).each do |idx2|
+    #       # LOWER.include?(text[idx2]) ? (substring << text[idx2]) : (return substring << text[idx2])
+    #     end
+    #   else
+    #     0
+    #     # finding if next char after uppercase is lowercase
+    #       # if LOWER.include?(char)
+    #       #   substring << char
+    #       #   p substring
+    #       # end
+    #   end
+    # end
   end
   result
 end
 
+p subs(['foUrsCoreAnd', 'seven', ''])
 # decode(['ZoL', 'heLlo', 'XX']) #== [1, 0, 0]
 decode(['foUrsCoreAnd', 'seven', '']) #== [2, 0, 0]
 # p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
