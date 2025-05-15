@@ -53,30 +53,51 @@ ALGO:
 LOWER = ("a".."z").to_a
 UPPER = ("A".."Z").to_a
 
-def subs(arr)
+# def subs(arr)
+#   substring = ""
+#   substrings = []
+#   count = 0
+
+#   arr.each do |text|
+#     text.each_char.with_index do |char, idx1|
+#       # finding if char is uppercase
+#       if UPPER.include?(char)
+#         substring << char
+
+#         (idx1 + 1..text.size - 1).each do |idx2|
+#           # if LOWER.include?(text[idx2])
+#           #   substring << text[idx2]
+#           # elsif UPPER.include?(text[idx2])
+#           #   substring << text[idx2]
+#           #   substrings << substring
+#           # end
+#         end
+
+#       end
+#     end
+#   end
+#   p count
+# end
+
+def sub(text)
+  count = 0
   substring = ""
-  substrings = []
 
-  arr.each do |text|
-    text.each_char.with_index do |char, idx1|
-      # finding if char is uppercase
-      if UPPER.include?(char)
-        substring << char
-
-        (idx1 + 1..text.size - 1).each do |idx2|
-          if LOWER.include?(text[idx2])
-            substring << text[idx2]
-          elsif UPPER.include?(text[idx2])
-            substring << text[idx2]
-            substrings << substring
-          end
+  text.each_char.with_index do |char, idx1 |
+    if UPPER.include?(char)
+      (idx1 + 1...text.size).each do |idx2|
+        if LOWER.include?(text[idx2])
+          substring << text[idx2]
+        elsif UPPER.include?(text[idx2])
+          return substring.size
         end
-
       end
+    else
+      0
     end
   end
-
 end
+
 
 def decode(arr)
   return [] if arr.empty?
@@ -84,7 +105,12 @@ def decode(arr)
   substring = ""
 
   result = arr.map do |text|
-    text.empty? ? 0 : text
+    # text.empty? ? 0 : text
+    if text.empty? || text.chars.all? { |char| LOWER.include?(char) }
+      0
+    # elsif text.chars.one? { |char| text.count(char.upcase) == 1 }
+    #   0
+    end
 
     # text.each_char.with_index do |char, idx1|
     #   # finding if char is uppercase
@@ -106,7 +132,8 @@ def decode(arr)
   result
 end
 
-p subs(['foUrsCoreAnd', 'seven', ''])
+p sub('foUrsCoreAnd')
+# p sub('heLlo')
 # decode(['ZoL', 'heLlo', 'XX']) #== [1, 0, 0]
 decode(['foUrsCoreAnd', 'seven', '']) #== [2, 0, 0]
 # p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
