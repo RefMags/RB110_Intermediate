@@ -53,144 +53,112 @@ ALGO:
 LOWER = ("a".."z").to_a
 UPPER = ("A".."Z").to_a
 
-# def subs(arr)
-#   substring = ""
-#   substrings = []
-#   count = 0
-
-#   arr.each do |text|
-#     text.each_char.with_index do |char, idx1|
-#       # finding if char is uppercase
-#       if UPPER.include?(char)
-#         substring << char
-
-#         (idx1 + 1..text.size - 1).each do |idx2|
-#           # if LOWER.include?(text[idx2])
-#           #   substring << text[idx2]
-#           # elsif UPPER.include?(text[idx2])
-#           #   substring << text[idx2]
-#           #   substrings << substring
-#           # end
-#         end
-
-#       end
-#     end
-#   end
-#   p count
-# end
-
 def sub(text)
-  count = 0
   substring = ""
 
-  text.each_char.with_index do |char, idx1 |
-    if UPPER.include?(char)
+  text.each_char.with_index do |letter, idx1|
+    if UPPER.include?(letter)
       (idx1 + 1...text.size).each do |idx2|
-        if LOWER.include?(text[idx2])
-          substring << text[idx2]
-        elsif UPPER.include?(text[idx2])
-          return substring.size
-        end
+        LOWER.include?(text[idx2]) ? (substring << text[idx2]) : break
       end
-    else
-      0
+    break
     end
   end
+
+  substring.size
 end
 
+# For all text with one uppercase letter
+def uppercase_count(text)
+  count = 0
+
+  text.each_char do |char|
+    count += 1 if UPPER.include?(char)
+  end
+
+  true if count == 1
+end
 
 def decode(arr)
   return [] if arr.empty?
 
-  substring = ""
-
-  result = arr.map do |text|
-    # text.empty? ? 0 : text
-    if text.empty? || text.chars.all? { |char| LOWER.include?(char) }
+  arr.map do |text|
+    if text.empty? || text.chars.all? {|char| LOWER.include?(char)} || uppercase_count(text)
       0
-    # elsif text.chars.one? { |char| text.count(char.upcase) == 1 }
-    #   0
+    else
+      sub(text)
     end
-
-    # text.each_char.with_index do |char, idx1|
-    #   # finding if char is uppercase
-    #   if UPPER.include?(char)
-    #     substring << char
-    #     (idx1 + 1..text.size - 1).each do |idx2|
-    #       # LOWER.include?(text[idx2]) ? (substring << text[idx2]) : (return substring << text[idx2])
-    #     end
-    #   else
-    #     0
-    #     # finding if next char after uppercase is lowercase
-    #       # if LOWER.include?(char)
-    #       #   substring << char
-    #       #   p substring
-    #       # end
-    #   end
-    # end
   end
-  result
 end
 
-p sub('foUrsCoreAnd')
-# p sub('heLlo')
-# decode(['ZoL', 'heLlo', 'XX']) #== [1, 0, 0]
-decode(['foUrsCoreAnd', 'seven', '']) #== [2, 0, 0]
-# p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
-# p decode([]) == []
+p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
+p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
+p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
+p decode([]) == []
 
 
 
 
 =begin
+We're receiving a set of messages in code. The messages are sets of text strings, like:"alakwnwenvocxzZjsf"
+ Write a method to decode these strings into numbers.
+The decoded number should be the number of lowercase characters between the first two uppercase characters. If there aren't two uppercase characters, the number should be 0.
 
-# Problem:
+INPUT
+  Array (of Strings)
+OUTPUT
+  Array (of Integers, representing the decoded strings from input)
 
-# input - array of strings
-# output - array of integers
-# - use map for transformation ?
+RULES & TERMS
+  • Strings decoded toa number
+    - The count of lowercase letters between the first 2 uppercase chars
+    - IF there are less than 2 uppercase chars THEN RETURN 0 for the decode
+  • IF input is empty THEN RETURN empty Array
+  • IF a String is empty DECODE it to 0
 
-# for each string, return the number of lowercase chars between the first two uppercase chars
-# - if not 2 uppercase chars, return 0 for that string
+DS
+  Integer (index for the first uppercase char)
+  Integer (index for the second uppercase char)
+  Range (from first uppercase char + 1 to the second uppcase char idx (non-inclusive))
 
-# Test cases:
-# p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
-# p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
-# p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
-# p decode([]) == []
+ALGO
+** HELPER: get_uppercase_range(string)
 
-# - Data Structure
+  0. TRANSFORM each word from input string to decoded Integer
+    a) GET the index positions of the first and last uppercase chars
+      -- ITERATE through the string and it's idxs
+        -- IF char is an uppercase add its idx to an Array
 
-# - array to array using map for transformation
+    b) IF there are less than 2 indexes found for uppercase chars THEN RETURN 0 for the decode
+    c) COUNT the lowercase chars inbetween the two uppcase indexes
+      -- GET substring from current string from 1st uppercase idx to 2nd upeprcase idx
+      -- RETURN size of the substring
+=end
 
-# Algorithm:
+UPPERCASES = ('A'..'Z').to_a
 
-# - If the string does not include at least two uppercase characters, return 0
-# - Else, iterate over the input array
-# - For each string, iterate over each character
-# - Check if the current character is uppercase
-# - If it is, push the index of that character into a new array
-# - From the new array, subtract the element at the first index from the element at the second index
-# - Return the result
-
-# Code:
-
-# Note, this solution does not work because the math is wrong (subtracting one index from another)
-
-def decode(array)
-  array.map do |string|
-    array = []
-    if string.chars.count {|char| char == char.upcase} < 2
+def decode(strings)
+  strings.map! do |str|
+    lowercase_range = uppercase_indexes(str)
+    if lowercase_range.size < 2
       0
     else
-      string.chars.each_with_index do |char, index|
-        array << index if char == char.upcase
-      end
-    array[1] - array[0]
+      str[(lowercase_range[0] + 1)...lowercase_range[1]].size
     end
   end
 end
 
-p decode(['ZoL', 'heLlo', 'XX']) # == [1, 0, 0]
+def uppercase_indexes(str)
+  uppercase_indexes = []
 
-=end
+  str.chars.each_with_index do |char, idx|
+    uppercase_indexes << idx if UPPERCASES.include? char
+  end
+
+  uppercase_indexes[0, 2]
+end
+
+p decode(['ZoL', 'heLlo', 'XX']) == [1, 0, 0]
+p decode(['foUrsCoreAnd', 'seven', '']) == [2, 0, 0]
+p decode(['lucYintheskyWith', 'dIaMonDs']) == [8, 1]
+p decode([]) == []
