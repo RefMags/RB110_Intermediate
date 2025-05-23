@@ -39,7 +39,8 @@ def palindrome(num, target)
   counter = num
 
   until palindromes.size == target
-    if counter.to_s == counter.to_s.reverse
+    string_counter = counter.to_s
+    if string_counter == string_counter.to_s.reverse
        palindromes << counter if counter > 9
     end
     counter += 1
