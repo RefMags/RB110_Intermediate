@@ -28,6 +28,7 @@ ALPHABETS = ("a".."z").to_a
 # p count_letters('!!!') == {}
 
 
+
 arr = 'W. E. B. Du Bois'.chars.uniq
 lowercase = arr.find_all {|ele| ALPHABETS.include?(ele)}
 p lowercase.tally
