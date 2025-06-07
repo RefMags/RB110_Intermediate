@@ -1,10 +1,22 @@
-def is_pangram(str)
-  alphabets = ("a".."z").to_a
+# def is_pangram(str)
+#   alphabets = ("a".."z").to_a
 
-  uniq_letters = str.downcase.chars.uniq.select {|letter| alphabets.include?(letter)}.sort
+#   uniq_letters = str.downcase.chars.uniq.select {|letter| alphabets.include?(letter)}.sort
 
-  # p uniq_letters
-  uniq_letters == alphabets ? true : false
+#   # p uniq_letters
+#   uniq_letters == alphabets ? true : false
+# end
+
+ALPHABETS = ('a'..'z').to_a
+
+def is_pangram(source)
+  source = source.downcase.chars.uniq.sort
+
+  # Select all alphabets
+  alphabets = source.select {|char| ALPHABETS.include?(char)}
+
+  alphabets == ALPHABETS
+
 end
 
 p is_pangram('The quick, brown fox jumps over the lazy dog!') == true
