@@ -16,7 +16,7 @@ def repeated_substring(source)
   end
 
   # Get the shortest possible substring with largest possible repeat
-  fitting_substrings = result.to_h
+  fitting_substrings = result.sort
   fitting_substrings.first
 
 end
